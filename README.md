@@ -1,5 +1,7 @@
 A short script to list users and organizations that have saved searches, and the number of saved searches associated with each user or org.
 
+**Note**: This script works for Sourcegraph instances before version 3.0.0.
+
 To run:
 
 1. Clone this repository and `cd` into it.
