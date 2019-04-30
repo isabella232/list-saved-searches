@@ -11,8 +11,10 @@ r = requests.post(args.url + '/.api/graphql', json={'query':
   users {
     nodes {
       username
-      settingsCascade {
-        final
+      configurationCascade {
+        merged {
+          contents
+        }
       }
     }
   }
@@ -24,8 +26,10 @@ r = requests.post(args.url + '/.api/graphql', json={'query':
           username
         }
       }
-      settingsCascade{
-        final
+      configurationCascade {
+        merged {
+          contents
+        }
       }
     }
   }
@@ -36,7 +40,7 @@ responseJSON = r.json()
 userNodes = responseJSON['data']['users']['nodes']
 usernameToSavedSearchCount = []
 for n in userNodes:
-  settings = n['settingsCascade']['final']
+  settings = n['configurationCascade']['merged']['contents']
   if (settings):
     s = json.loads(settings)
     if (s['search.savedQueries']):
@@ -45,7 +49,7 @@ for n in userNodes:
 orgNodes = responseJSON['data']['organizations']['nodes']
 orgNamesToSavedSearchCount = []
 for o in orgNodes:
-  settings = o['settingsCascade']['final']
+  settings = o['configurationCascade']['merged']['contents']
   if (settings):
     s = json.loads(settings)
     if (s['search.savedQueries']):
