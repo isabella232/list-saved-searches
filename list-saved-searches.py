@@ -47,7 +47,7 @@ for n in userNodes:
     if (s['search.savedQueries']):
       numQueries = len(s['search.savedQueries'])
       if ((args.multiple == True and numQueries > 1) or args.multiple == False):
-        usernameToSavedSearchCount.append([n['username'], len(s['search.savedQueries'])])
+        usernameToSavedSearchCount.append([n['username'], numQueries])
 
 orgNodes = responseJSON['data']['organizations']['nodes']
 orgNamesToSavedSearchCount = []
@@ -58,7 +58,7 @@ for o in orgNodes:
     if (s['search.savedQueries']):
       numQueries = len(s['search.savedQueries'])
       if ((args.multiple == True and numQueries > 1) or args.multiple == False):
-        orgNamesToSavedSearchCount.append([o['name'], len(s['search.savedQueries'])])
+        orgNamesToSavedSearchCount.append([o['name'], numQueries])
 
 print(tabulate(usernameToSavedSearchCount, headers=["Username", "# saved searches"]))
 print('\n')
