@@ -26,3 +26,5 @@ Org name                      # saved searches
 --------------------------  ------------------
 Sourcegraph                                  1
 ```
+
+To only output users or orgs with multiple saved searches, add `--multiple` to the end of the command.
