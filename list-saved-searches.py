@@ -4,6 +4,7 @@ from tabulate import tabulate
 parser = argparse.ArgumentParser()
 parser.add_argument("url")
 parser.add_argument("token")
+parser.add_argument("--multiple", action='store_true')
 args = parser.parse_args()
 
 r = requests.post(args.url + '/.api/graphql', json={'query':
@@ -44,7 +45,9 @@ for n in userNodes:
   if (settings):
     s = json.loads(settings)
     if (s['search.savedQueries']):
-      usernameToSavedSearchCount.append([n['username'], len(s['search.savedQueries'])])
+      numQueries = len(s['search.savedQueries'])
+      if ((args.multiple == True and numQueries > 1) or args.multiple == False):
+        usernameToSavedSearchCount.append([n['username'], len(s['search.savedQueries'])])
 
 orgNodes = responseJSON['data']['organizations']['nodes']
 orgNamesToSavedSearchCount = []
@@ -53,7 +56,9 @@ for o in orgNodes:
   if (settings):
     s = json.loads(settings)
     if (s['search.savedQueries']):
-      orgNamesToSavedSearchCount.append([o['name'], len(s['search.savedQueries'])])
+      numQueries = len(s['search.savedQueries'])
+      if ((args.multiple == True and numQueries > 1) or args.multiple == False):
+        orgNamesToSavedSearchCount.append([o['name'], len(s['search.savedQueries'])])
 
 print(tabulate(usernameToSavedSearchCount, headers=["Username", "# saved searches"]))
 print('\n')
